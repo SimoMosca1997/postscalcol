@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Reach, EMV, ReachH</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Calcolatore Reach, EMV, ReachH</h2>
+        
+        <label for="engagement">Inserisci l'Engagement:</label>
+        <input type="number" id="engagement" placeholder="E.g., 50000" required>
+        
+        <label for="follower">Inserisci il numero di Follower:</label>
+        <input type="number" id="follower" placeholder="E.g., 100000" required>
+        
+        <label for="sixMax">Inserisci il valore di SixMax:</label>
+        <input type="number" id="sixMax" placeholder="E.g., 10000000" required>
+        
+        <input type="button" value="Calcola" onclick="calcola()">
+        
+        <div id="results" class="result" style="display: none;">
+            <p><strong>Reach:</strong> <span id="reachResult"></span></p>
+            <p><strong>EMV:</strong> <span id="emvResult"></span></p>
+            <p><strong>ReachH:</strong> <span id="reachHResult"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function calcola() {
+            // Ottieni i valori inseriti
+            var engagement = parseFloat(document.getElementById("engagement").value);
+            var follower = parseInt(document.getElementById("follower").value);
+            var sixMax = parseFloat(document.getElementById("sixMax").value);
+            
+            // Verifica che tutti i campi siano stati compilati
+            if (isNaN(engagement) || isNaN(follower) || isNaN(sixMax)) {
+                alert("Per favore, inserisci tutti i valori.");
+                return;
+            }
+
+            // Calcola Reach
+            var reach = (engagement / sixMax) * follower;
+
+            // Calcola EMV
+            var emv = reach * 0.0325;
+
+            // Calcola ReachH
+            var reachH = 0.30 * follower;
+
+            // Mostra i risultati
+            document.getElementById("reachResult").textContent = reach.toFixed(2);
+            document.getElementById("emvResult").textContent = emv.toFixed(2);
+            document.getElementById("reachHResult").textContent = reachH.toFixed(2);
+
+            // Mostra la sezione dei risultati
+            document.getElementById("results").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
